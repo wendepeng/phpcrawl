@@ -41,22 +41,6 @@ class MyCrawler extends PHPCrawler
     //输出提示
     echo "download img : $img_url\n";
     flush();
-    // Print the URL and the HTTP-status-Code
-    //echo "Page requested: ".$DocInfo->url." (".$DocInfo->http_status_code.")".$lb;
-    
-    // Print the refering URL
-    //echo "Referer-page: ".$DocInfo->referer_url.$lb;
-    
-    // Print if the content of the document was be recieved or not
-    //if ($DocInfo->received == true)
-      // echo "Content received: ".$DocInfo->bytes_received." bytes".$lb;
-    // else
-      // echo "Content not received".$lb; 
-    
-    // Now you should do something with the content of the actual
-    // received page or file ($DocInfo->source), we skip it in this example 
-    
-    
   } 
 }
 
@@ -84,22 +68,14 @@ if (!file_exists($guid_file))
   $crawler->resume($crawler_id);
 }
 
-// URL to crawl
 $crawler->setURL("http://www.nipic.com/index.html");
 
-// Only receive content of files with content-type "text/html"
 $crawler->addContentTypeReceiveRule("#text/html#");
 
 $crawler->addURLFilterRule("#\.(css|js|ico|jpg|jpeg)$# i");
 
-// Store and send cookie-data like a browser doe
 $crawler->enableCookieHandling(true);
 
-// Set the traffic-limit to 1 MB (in bytes,
-// for testing we dont want to "suck" the whole site)
-#$crawler->setTrafficLimit(1000 * 1024);
-
-// Thats enough, now here we go
 $crawler->go();
 unlink($guid_file);
 // At the end, after the process is finished, we print a short
