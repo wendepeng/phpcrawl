@@ -143,7 +143,7 @@ class PHPCrawlerHTTPRequest
    *
    * @array
    */
-  protected $cookie_array = array();
+  public $cookie_array = array();
   
   /**
    * Array containing POST-data to send with the request
@@ -222,6 +222,10 @@ class PHPCrawlerHTTPRequest
    */
   public function addCookie($name, $value)
   {
+    if(isset($this->cookie_array[$name])){
+      return ;
+    }
+    
     $this->cookie_array[$name] = $value;
   }
   
@@ -911,7 +915,8 @@ class PHPCrawlerHTTPRequest
     
     $headerlines[] = "Host: ".$this->url_parts["host"]."\r\n";
     
-    $headerlines[] = "User-Agent: ".str_replace("\n", "", $this->userAgentString)."\r\n";    $headerlines[] = "Accept: */*\r\n";
+    $headerlines[] = "User-Agent: ".str_replace("\n", "", $this->userAgentString)."\r\n";
+    $headerlines[] = "Accept: */*\r\n";
     
     // Request GZIP-content
     if ($this->request_gzip_content == true)
